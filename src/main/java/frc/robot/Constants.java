@@ -1,6 +1,7 @@
 package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
+import frc.robot.generated.TunerConstants;
 
 public class Constants {
     public static class SwerveConstants {
