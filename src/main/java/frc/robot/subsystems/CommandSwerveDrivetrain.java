@@ -9,6 +9,7 @@ import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
 import org.photonvision.PhotonPoseEstimator.PoseStrategy;
+import org.photonvision.estimation.VisionEstimation;
 import org.photonvision.targeting.PhotonPipelineResult;
 
 import com.ctre.phoenix6.SignalLogger;
@@ -65,13 +66,14 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
     // PHOTONVISION STUFF
     private final PhotonCamera camera = new PhotonCamera("BackCamera");
     private final PhotonPoseEstimator visionEstimator = new PhotonPoseEstimator(
-        AprilTagFieldLayout.loadField(AprilTagFields.k2024Crescendo), 
+        AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField), 
         PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, 
         new Transform3d(
             new Translation3d(Units.inchesToMeters(-12), 0, Units.inchesToMeters(2.25)),
-            new Rotation3d(0, 20, 180)
-        ));
-
+            new Rotation3d(0, 20, 179)
+        )
+        );
+    
     /** Swerve request to apply during robot-centric path following */
     private final SwerveRequest.ApplyRobotSpeeds pathApplyRobotSpeeds = new SwerveRequest.ApplyRobotSpeeds();
 
@@ -305,16 +307,21 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
             });
         }
 
+        /*
+         * PROVEN:
+         * CAMERA IS DETECTING AND REPORTING TAG DATA
+         * 3D IS CALIBRATED
+         */
+        visionEstimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
         var latestResults = camera.getAllUnreadResults();
         for(PhotonPipelineResult result : latestResults) {
             Optional<EstimatedRobotPose> poseData = visionEstimator.update(result);
+            System.out.println(poseData.isPresent());
             if (poseData.isPresent()) {
                 EstimatedRobotPose estimatedPose = poseData.get();
                 System.out.println("processing pose at " + estimatedPose.timestampSeconds);
                 System.out.println(estimatedPose.estimatedPose.toPose2d());
-                addVisionMeasurement(estimatedPose.estimatedPose.toPose2d(), estimatedPose.timestampSeconds);
-            } else {
-                System.out.println("no pose data");
+                addVisionMeasurement(estimatedPose.estimatedPose.toPose2d(), Utils.getCurrentTimeSeconds());
             }
         }
 
