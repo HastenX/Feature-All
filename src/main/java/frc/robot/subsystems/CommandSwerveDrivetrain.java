@@ -66,7 +66,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
     private final PhotonCamera camera = new PhotonCamera("BackCamera");
     private final PhotonPoseEstimator visionEstimator = new PhotonPoseEstimator(
         AprilTagFieldLayout.loadField(AprilTagFields.k2024Crescendo), 
-        PoseStrategy.AVERAGE_BEST_TARGETS, 
+        PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, 
         new Transform3d(
             new Translation3d(Units.inchesToMeters(-12), 0, Units.inchesToMeters(2.25)),
             new Rotation3d(0, 20, 180)
