@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6515568123064281,
-        "y": 3.799897781355936
+        "x": 1.6376081594339196,
+        "y": 3.8652046755126213
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.9249999999999994,
-        "y": 4.270747950819672
+        "x": 3.0448770491803274,
+        "y": 4.246772540983606
       },
       "prevControl": {
-        "x": 2.678943363790194,
-        "y": 4.3149761293613595
+        "x": 2.6385658076273826,
+        "y": 4.20365252702597
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,7 +45,7 @@
     "rotation": 180.0
   },
   "reversed": false,
-  "folder": "Lollipop upper map",
+  "folder": "Lollipop upper",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0

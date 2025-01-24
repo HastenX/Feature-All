@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.9679303278688525,
-        "y": 5.361629098360655
+        "x": 3.932,
+        "y": 5.398
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.248668032786885,
-        "y": 5.217776639344262
+        "x": 3.2672571863480346,
+        "y": 5.055594801562602
       },
       "isLocked": false,
       "linkedName": null
@@ -20,8 +20,8 @@
         "y": 3.983043032786885
       },
       "prevControl": {
-        "x": 1.7782551370945137,
-        "y": 4.24491941153647
+        "x": 1.974211776061784,
+        "y": 4.204440239175402
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,7 +45,7 @@
     "rotation": 180.0
   },
   "reversed": false,
-  "folder": "Lollipop upper map",
+  "folder": "Lollipop upper",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 120.46554491945989
