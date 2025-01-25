@@ -8,34 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-<<<<<<< HEAD:src/main/deploy/pathplanner/paths/Test Path.path
-        "x": 0.972859509198335,
-        "y": 0.6812035619596726
-=======
-        "x": 2.7116710537583506,
-        "y": 6.0469809329661155
->>>>>>> 00af3dc29b746488c1d887d2e8bde7922439d04f:src/main/deploy/pathplanner/paths/Pt3 lollipop upper.path
+        "x": 2.9159730039443783,
+        "y": 5.943895370893065
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-<<<<<<< HEAD:src/main/deploy/pathplanner/paths/Test Path.path
-        "x": 2.0,
-        "y": 0.0
-      },
-      "prevControl": {
-        "x": 1.472517123287671,
-        "y": 1.8087114726027391
-=======
         "x": 3.932,
-        "y": 5.397592213114754
+        "y": 5.398
       },
       "prevControl": {
-        "x": 2.4482530211260887,
-        "y": 5.326360793975111
->>>>>>> 00af3dc29b746488c1d887d2e8bde7922439d04f:src/main/deploy/pathplanner/paths/Pt3 lollipop upper.path
+        "x": 2.6392713302211455,
+        "y": 5.72635894936938
       },
       "nextControl": null,
       "isLocked": false,
@@ -47,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 1.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -56,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 121.5042667192042
+    "rotation": 119.99999999999999
   },
   "reversed": false,
   "folder": "Lollipop upper",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

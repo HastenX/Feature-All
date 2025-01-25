@@ -69,6 +69,6 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand() {
-        return AutoBuilder.buildAuto("Test Auto");
+        return AutoBuilder.buildAuto("Coral station lower Auto");
     }
 }
