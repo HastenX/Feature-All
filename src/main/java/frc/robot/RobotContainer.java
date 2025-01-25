@@ -8,7 +8,6 @@ import frc.robot.Constants.SwerveConstants;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.pathplanner.lib.auto.AutoBuilder;
-import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -67,9 +66,6 @@ public class RobotContainer {
 
         // setup logger
         drivetrain.registerTelemetry(logger::telemeterize);
-
-        SignalLogger.setPath("/ctre-logs");
-        SignalLogger.start();
     }
 
     public Command getAutonomousCommand() {
