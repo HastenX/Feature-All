@@ -11,4 +11,56 @@ public class Constants {
         public static final double kTranslationalDeadband = kMaxSpeed * 0.1;
         public static final double kRotationalDeadband = kMaxAngularRate * 0.1;
     }
+
+    public static class ElevatorConstants{
+        public static final double kTOLERENCE = 1;
+
+        public static final double kMIN_LIMIT = -1;
+        public static final double kMAX_LIMIT = -1;
+
+        public static final double kP = -1;
+        public static final double kI = -1;
+        public static final double kD = -1;
+    }
+
+    public static class PivotConstants {
+        public static final double kPOSITIONAL_CONVERSION = 360;
+
+        public static final double kP = -1;
+        public static final double kI = -1;
+        public static final double kD = -1;
+
+        public static final double kTOLERANCE = 1;
+
+        public static final double kMAX_LIMIT = -1;
+        public static final double kMIN_LIMIT = -1;
+    }
+
+    public static class IntakeConstants {
+
+        public static final int kMotorID = -1;
+    }
+
+    public static class RotateConstants {
+        public static final double kP = -1;
+        public static final double kI = -1;
+        public static final double kD = -1;
+        public static final double kFF = -1;
+        public static final double kTolerance = 1;
+        public static final double kConversionFactor = 360;
+    }
+
+    public static class TiltConstants {
+        public static final double kP = -1;
+        public static final double kI = -1;
+        public static final double kD = -1;
+        public static final double kFF = -1;
+        public static final double kTolerance = 1;
+        public static final double kConversionFactor = 360;
+    }
+
+    public static class LEDConstants {
+        public static final int kPort = -1;
+        public static final int kLED_Length= -1;
+    }
 }

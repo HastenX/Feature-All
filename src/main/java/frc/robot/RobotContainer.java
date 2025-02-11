@@ -17,6 +17,11 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.LEDController;
+import frc.robot.subsystems.PivotSubsystem;
+import frc.robot.subsystems.RotateWristSubsystem;
+import frc.robot.subsystems.TiltWristSubsystem;
 
 public class RobotContainer {
     // IO DEVICES
@@ -33,6 +38,16 @@ public class RobotContainer {
     // SWERVE CONFIG
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     private final Telemetry logger = new Telemetry(SwerveConstants.kMaxSpeed);
+
+    private final ElevatorSubsystem elevator = new ElevatorSubsystem();
+    private final PivotSubsystem pivot = new PivotSubsystem();
+
+    private final RotateWristSubsystem rotate = new RotateWristSubsystem();
+    private final TiltWristSubsystem tilt = new TiltWristSubsystem();
+
+    private final LEDController leds = new LEDController(pivot, elevator, rotate, tilt);
+
+    private final ArmMovements setLevel = new ArmMovements(elevator, pivot, tilt, rotate, leds);
 
     public RobotContainer() {
         configureBindings();
@@ -66,6 +81,14 @@ public class RobotContainer {
 
         // setup logger
         drivetrain.registerTelemetry(logger::telemeterize);
+
+        // OPERATOR CONTROLLER
+        operatorController.povUp()
+            .onTrue(setLevel.directionToBase
+                .andThen(setLevel.lFourFromStore()));
+        
+        operatorController.b()
+            .onTrue(setLevel.directionToBase);
     }
 
     public Command getAutonomousCommand() {
