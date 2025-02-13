@@ -82,6 +82,14 @@ public class PivotSubsystem implements Subsystem {
         });
     }
 
+    /**gets the direction of Pivot, used for determining order of command groups.
+     * @param newPosition
+     * The new position to determine direction
+     */
+    public boolean isPivotRising(PivotPosition newPosition) {
+        return (newPosition.degrees-currentTargetPosition.degrees > 0 );
+    }
+
     public Command waitUntilAtSetpoint() {
         return new WaitUntilCommand(() -> {
             return isAtSetpoint();

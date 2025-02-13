@@ -23,8 +23,7 @@ public class LEDController implements Subsystem {
     private PivotSubsystem pivot;
 
     private IntakeSubsystem intake;
-    private RotateWristSubsystem rotate;
-    private TiltWristSubsystem tilt;
+    private WristSubsystem wrist;
 
     /**LED Constructor is set here
      * @param port
@@ -33,7 +32,7 @@ public class LEDController implements Subsystem {
      * The total length of LED strips
      */
     public LEDController(
-        PivotSubsystem pivot, ElevatorSubsystem elevator, RotateWristSubsystem rotateWrist, TiltWristSubsystem tiltWrist) {
+        PivotSubsystem pivot, ElevatorSubsystem elevator, WristSubsystem wrist) {
         // Constructor for LED objects
         leds = new AddressableLED(LEDConstants.kPort);
         ledBuffer = new AddressableLEDBuffer(LEDConstants.kLED_Length);
@@ -46,8 +45,7 @@ public class LEDController implements Subsystem {
         // SUBSYSTEMS TO USE FOR CONDITIONALS
         elevator = new ElevatorSubsystem();
         pivot = new PivotSubsystem();
-        rotateWrist = new RotateWristSubsystem();
-        tiltWrist = new TiltWristSubsystem();
+        wrist = new WristSubsystem();
         currentRGB = TargetRGB.NONE;
     }
     /**Changes the colot of LEDs
@@ -95,8 +93,8 @@ public class LEDController implements Subsystem {
         if(cycleTicks >= 10) {
             if(!elevator.isAtSetpoint() 
             || !pivot.isAtSetpoint()
-            || !rotate.isAtSetpoint()
-            || !tilt.isAtSetPoint()) {
+            || !wrist.rotateIsAtSetpoint()
+            || !wrist.tiltIsAtSetpoint()) {
                 setColor(TargetRGB.IN_TRANSITION);
             } else {
                 if(elevator.currentTargetPosition != ElevatorPosition.STORED) {
@@ -119,8 +117,8 @@ public class LEDController implements Subsystem {
             setColor(TargetRGB.IN_TRANSITION);
             // PIVOT IS NOT INCLUDED BECAUSE IT IIRST TO MOVE
             return !elevator.isAtSetpoint()
-                || !rotate.isAtSetpoint()
-                || !tilt.isAtSetPoint();
+            || !wrist.rotateIsAtSetpoint()
+            || !wrist.tiltIsAtSetpoint();
         });
     }
 

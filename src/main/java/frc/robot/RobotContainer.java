@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import frc.robot.Arm.ArmMovements;
+import frc.robot.Arm.ArmState;
 import frc.robot.Constants.SwerveConstants;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
@@ -18,10 +20,10 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LEDController;
 import frc.robot.subsystems.PivotSubsystem;
-import frc.robot.subsystems.RotateWristSubsystem;
-import frc.robot.subsystems.TiltWristSubsystem;
+import frc.robot.subsystems.WristSubsystem;
 
 public class RobotContainer {
     // IO DEVICES
@@ -39,15 +41,15 @@ public class RobotContainer {
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     private final Telemetry logger = new Telemetry(SwerveConstants.kMaxSpeed);
 
+    // SUBSYSTEM OBJECTS
+    private final IntakeSubsystem intake = new IntakeSubsystem();
     private final ElevatorSubsystem elevator = new ElevatorSubsystem();
     private final PivotSubsystem pivot = new PivotSubsystem();
+    private final WristSubsystem wrist = new WristSubsystem();
 
-    private final RotateWristSubsystem rotate = new RotateWristSubsystem();
-    private final TiltWristSubsystem tilt = new TiltWristSubsystem();
+    private final LEDController leds = new LEDController(pivot, elevator, wrist);
 
-    private final LEDController leds = new LEDController(pivot, elevator, rotate, tilt);
-
-    private final ArmMovements setLevel = new ArmMovements(elevator, pivot, tilt, rotate, leds);
+    private final ArmMovements armMovementFactory = new ArmMovements(elevator, pivot, wrist, intake, leds);
 
     public RobotContainer() {
         configureBindings();
@@ -84,11 +86,15 @@ public class RobotContainer {
 
         // OPERATOR CONTROLLER
         operatorController.povUp()
-            .onTrue(setLevel.directionToBase
-                .andThen(setLevel.lFourFromStore()));
+            .onTrue(armMovementFactory.setArmState(ArmState.STORED)
+                .andThen(armMovementFactory.setArmState(ArmState.L_FOUR)));
         
         operatorController.b()
-            .onTrue(setLevel.directionToBase);
+            .onTrue(armMovementFactory.setArmState(ArmState.STORED));
+
+        operatorController.rightBumper()
+            .whileTrue(intake.runIntake(true))
+            .onFalse(intake.runIntake(false));
     }
 
     public Command getAutonomousCommand() {
